@@ -19,7 +19,10 @@ int main()
     // Declaramos las variables para el dia, mes y anio
     int dia, mes, anio;
     // Declaramos una bandera para saber si la fecha es valida o no
-    int esFechaValida = 0;
+    int esFechaValida;
+    // Declaramos una bandera para saber si el anio es bisiesto o no
+    int esAnioBisiesto;
+
     // Leemos el dia, mes y anio
     printf("Dame el dia: ");
     scanf("%d", &dia);
@@ -27,8 +30,16 @@ int main()
     scanf("%d", &mes);
     printf("Dame el anio: ");
     scanf("%d", &anio);
-    // Usamos el switch-case para agrupar los casos en los que los meses tienen 31, 30 y 28 o 29 dias
+    
+    /**
+     * Primero validamos el mes ya que es el dato que
+     * define la cantidad de dias que puede tener un mes.
+     * Para ello utilizamos un switch - case ya que es la
+     * estructura de control que nos permite evaluar una
+     * variable en base a una serie de casos.
+    */
     switch (mes) {
+        // Los meses que tienen 31 dias
         case ENERO:
         case MARZO:
         case MAYO:
@@ -41,18 +52,15 @@ int main()
                 esFechaValida = 1;
             }
             break;
+        // Febrero tiene 28 o 29 dias dependiendo del anio
         case FEBRERO:
+            esAnioBisiesto = anio % 4 == 0 && (anio % 100 != 0 || anio % 400 == 0);
             // Si el anio es bisiesto y el dia es mayor a 0 y menor o igual a 29, la fecha es valida
-            if (anio % 4 == 0 && (anio % 100 != 0 || anio % 400 == 0)) {
-                if (dia > 0  && dia <= 29) {
-                    esFechaValida = 1;
-                } 
-            }
-            // Si el anio no es bisiesto y el dia es mayor a 0 y menor o igual a 28, la fecha es valida
-            else {
-                if (dia > 0  && dia <= 28) {
-                    esFechaValida = 1;
-                }
+            if (esAnioBisiesto && dia > 0 && dia <= 29) {
+                esFechaValida = 1;
+            } else if (dia > 0 && dia <= 28) {
+                // Si el anio no es bisiesto y el dia es mayor a 0 y menor o igual a 28, la fecha es valida
+                esFechaValida = 1;
             }
             break;
         case ABRIL:
