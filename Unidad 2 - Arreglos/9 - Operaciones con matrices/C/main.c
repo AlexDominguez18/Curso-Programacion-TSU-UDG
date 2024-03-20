@@ -6,11 +6,11 @@
 int main()
 {
     // Declaración de una matriz de 2x2
-    int m1[FILAS][COLUMNAS] = { {3, 9}, {2, 7} };
+    int m1[FILAS][COLUMNAS] = {{1, 2}, {-3, 0}};
     // Declaración de una matriz de 2x2
-    int m2[FILAS][COLUMNAS] = { {1, 2}, {3, 4} };
+    int m2[FILAS][COLUMNAS] = {{3, 5}, {4, 1}};
     // Declaración de una matriz de 2x2 inicializada a 0
-    int resultado[FILAS][COLUMNAS] = { { } };
+    int resultado[FILAS][COLUMNAS] = {{}};
 
     // Impresion de las matrices
     for (int i = 0; i < FILAS; i++) {
@@ -41,6 +41,13 @@ int main()
         printf("\n");
     }
 
+    // Reseteamos los valores de la matriz resultado
+    for (int i = 0; i < FILAS; i++) {
+        for (int j = 0; j < COLUMNAS; j++) {
+            resultado[i][j] = 0;
+        }
+    }
+
     // Multiplicación de matrices
     for (int i = 0; i < FILAS; i++) {
         for (int j = 0; j < COLUMNAS; j++) {
@@ -53,8 +60,10 @@ int main()
 
     // Impresión de la matriz resultado
     printf("Multiplicacion de matrices\n");
-    for (int i = 0; i < FILAS; i++) {
-        for (int j = 0; j < COLUMNAS; j++) {
+    for (int i = 0; i < FILAS; i++)
+    {
+        for (int j = 0; j < COLUMNAS; j++)
+        {
             printf("%d ", resultado[i][j]);
         }
         printf("\n");
