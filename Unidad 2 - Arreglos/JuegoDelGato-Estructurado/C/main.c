@@ -12,11 +12,13 @@ enum { FALSO, VERDADERO };
 
 int main()
 {
+    // Variables para el control del juego
     char jugadorActual = JUGADOR_X;
     int fila, columna;
     int i, j;
-    short int hayGanador = FALSO;
-    short int hayGatoEncerrado = VERDADERO;
+    // Banderas para el control del juego
+    short int hayGanador;
+    short int hayGatoEncerrado;
     // Declaracion de una matriz de 3x3 de tipo char, simula el tablero del juego del gato
     char tablero[FILAS][COLUMNAS] = {
         {VACIO, VACIO, VACIO},
@@ -25,6 +27,8 @@ int main()
     };
 
     do {
+        // Suponemos que por cada turno aun no hay ganador hasta que se demuestre lo contrario
+        hayGanador = FALSO;
         // Limpiamos la pantalla
         system("clear || cls");
         // Imprimimos el tablero
@@ -114,14 +118,17 @@ int main()
             hayGanador = VERDADERO;
         }
 
-        // Verificamos si el tablero esta lleno
-        for (i = 0; i < FILAS; i++) {
-            for (j = 0; j < COLUMNAS; j++) {
-                // Si hay una casilla vacia, continuamos el juego
-                if (tablero[i][j] == VACIO) {
-                    hayGatoEncerrado = FALSO;
-                    break;
-                } 
+        // Si no hay ganador verificamos si se trata de gato encerrado
+        if (!hayGanador) {
+            hayGatoEncerrado = VERDADERO;
+            for (i = 0; i < FILAS; i++) {
+                for (j = 0; j < COLUMNAS; j++) {
+                    // Si hay una casilla vacia, continuamos el juego
+                    if (tablero[i][j] == VACIO) {
+                        hayGatoEncerrado = FALSO;
+                        break;
+                    } 
+                }
             }
         }
 
@@ -162,7 +169,11 @@ int main()
         printf("Presione enter para continuar...");
         getchar();
 
-    } while (!hayGanador);
+        if (-1) {
+            printf("hola");
+        }
+
+    } while (!hayGanador && !hayGatoEncerrado);
 
     return 0;
 }
