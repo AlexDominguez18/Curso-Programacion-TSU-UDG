@@ -40,6 +40,10 @@
         "sstream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "operaciones.h": "c",
+        "stdio.h": "c",
+        "stdlib.h": "c",
+        "util.h": "c"
     }
 }
