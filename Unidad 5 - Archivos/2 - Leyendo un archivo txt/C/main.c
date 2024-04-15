@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#define NOMBRE_ARCHIVO "../../1 - Escribiendo en archivo txt/C/ejemplo.txt"
 #define MAX 100
 
 int main()
