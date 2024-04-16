@@ -44,6 +44,7 @@
         "operaciones.h": "c",
         "stdio.h": "c",
         "stdlib.h": "c",
-        "util.h": "c"
+        "util.h": "c",
+        "producto.h": "c"
     }
 }
