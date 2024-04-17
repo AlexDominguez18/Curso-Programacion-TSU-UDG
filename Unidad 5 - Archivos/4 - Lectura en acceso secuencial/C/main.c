@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define NOMBRE_ARCHIVO "../../3 - Escritura en acceso aleatorio/C/alumnos.txt"
+#define NOMBRE_ARCHIVO "../../3 - Escritura en acceso secuencial/C/alumnos.txt"
 #define TAMANIO_NOMBRE 30
 #define CANTIDAD_ALUMNOS 5
 

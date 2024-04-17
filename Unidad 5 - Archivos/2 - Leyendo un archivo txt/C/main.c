@@ -8,7 +8,7 @@ int main()
     int tamanioArchivo;
     // Buffer para almacenar el contenido del archivo.
     char buffer[MAX];
-    FILE* archivo = fopen("ejemplo.txt", "r");
+    FILE* archivo = fopen(NOMBRE_ARCHIVO, "r");
 
     if (archivo == NULL) {
         printf("No se pudo abrir el archivo\n");
