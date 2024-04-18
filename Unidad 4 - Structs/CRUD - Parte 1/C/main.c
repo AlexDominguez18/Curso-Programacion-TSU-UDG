@@ -4,25 +4,36 @@
 #include "producto.h"
 #include "util.h"
 
+// Prototipo de funcion
 int elegirOpcionMenu();
-int capturarIdProducto(int cantidadProductos);
 
 int main()
 {
     int cantidadProductos = 0;
     Producto productos[CANTIDAD_PRODUCTOS];
     booleano continuarPrograma = true;
+    Guardado tipoGuardado = ALEATORIO;
+
+    inicializarProductos(productos);
+    if (tipoGuardado == SECUENCIAL) leerArchivoSecuencial(productos, &cantidadProductos);
+    else leerArchivoAleatorio(productos, &cantidadProductos);
 
     do {
         switch (elegirOpcionMenu()) {
             case 1:
-                agregarProducto(productos, capturarProducto(cantidadProductos), &cantidadProductos);
+                agregarProducto(productos,
+                    capturarProducto(cantidadProductos), 
+                    &cantidadProductos
+                );
                 break;
             case 2:
-                listarProductos(productos);
+                listarProductos(productos, cantidadProductos);
                 break;
             case 3:
-                mostrarProducto(productos, capturarIdProducto(cantidadProductos));
+                mostrarProducto(productos, 
+                    capturarIdProducto(cantidadProductos, "3 - MOSTRAR PRODUCTO"),
+                    cantidadProductos
+                );
                 break;
             case 4:
                 continuarPrograma = false;
@@ -36,6 +47,9 @@ int main()
         else printf("Gracias por usar Alex Shop\n");
 
     } while(continuarPrograma);
+
+    if (tipoGuardado == SECUENCIAL) escribirArchivoSecuencial(productos, cantidadProductos);
+    else escribirArchivoAleatorio(productos, cantidadProductos);
 
     return 0;
 }
@@ -54,24 +68,4 @@ int elegirOpcionMenu()
     limpiarBuffer();
 
     return opcion;
-}
-
-int capturarIdProducto(int cantidadProductos)
-{
-    int id;
-
-    do {
-        limpiarPantalla();
-        printf("3 - MOSTRAR PRODUCTO\n\n");
-        printf("Ingrese el ID del producto: ");
-        scanf("%d", &id);
-        limpiarBuffer();
-
-        if (id <= 0 || id > cantidadProductos) {
-            printf("ID no valido\n");
-            pausar("Presione ENTER para continuar...");
-        }
-    } while (id <= 0 || id > cantidadProductos);
-
-    return id;
 }

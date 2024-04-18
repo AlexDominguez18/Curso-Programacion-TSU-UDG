@@ -13,6 +13,7 @@ typedef enum {
 void pausar(char* mensaje);
 void limpiarPantalla();
 void limpiarBuffer();
+void imprimirLinea(char caracter, int longitud);
 
 // Definiciones de funciones
 void pausar(char* mensaje)
@@ -33,6 +34,14 @@ void limpiarPantalla()
 void limpiarBuffer()
 {
     while (getchar() != '\n');
+}
+
+void imprimirLinea(char caracter, int longitud)
+{
+    for (int i = 0; i < longitud; i++) {
+        printf("%c", caracter);
+    }
+    printf("\n");
 }
 
 #endif // UTIL_H

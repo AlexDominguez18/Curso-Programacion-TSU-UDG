@@ -1,0 +1,6 @@
+1,Gansito,Postre de chocolate,15.00,20
+2,Doritos,Botana enchilosa,16.00,30
+3,Coca-Cola,Bebida carbonatada de 2 litros,40.00,50
+4,Pan Bimbo,Pan para sandwich grande,54.50,20
+5,Atun Dolores, Lata de 450 gramos,45.00,10
+6,Electrolit,Bebida isotonica sabor mora azul,23.50,50
