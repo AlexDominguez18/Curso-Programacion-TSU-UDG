@@ -12,16 +12,29 @@ int main()
     int cantidadProductos = 0;
     Producto productos[TOTAL_PRODUCTOS];
     booleano continuarPrograma = true;
+    Guardado tipoGuardado = SECUENCIAL;
 
     inicializarProductos(productos);
-    
+    if (tipoGuardado == SECUENCIAL) leerArchivoSecuencial(productos, &cantidadProductos);
+    else leerArchivoAleatorio(productos, &cantidadProductos);
+
     do {
         switch (elegirOpcionMenu()) {
-            case AGREGAR_PRODUCTO: agregarProducto(productos, &cantidadProductos); break;
-            case BAJA_PRODUCTO: eliminarProducto(productos, &cantidadProductos); break;
-            case LISTAR_PRODUCTOS: listarProductos(productos, cantidadProductos); break;
-            case MOSTRAR_PRODUCTO: mostrarProducto(productos, cantidadProductos); break;
-            case EDITAR_PRODUCTO: editarProducto(productos, cantidadProductos); break;
+            case AGREGAR_PRODUCTO:
+                agregarProducto(productos, &cantidadProductos);
+                break;
+            case BAJA_PRODUCTO:
+                eliminarProducto(productos, &cantidadProductos);
+                break;
+            case LISTAR_PRODUCTOS:
+                listarProductos(productos, cantidadProductos);
+                break;
+            case MOSTRAR_PRODUCTO:
+                mostrarProducto(productos, cantidadProductos);
+                break;
+            case EDITAR_PRODUCTO:
+                editarProducto(productos, cantidadProductos);
+                break;
             case SALIR:
                 continuarPrograma = false;
                 break;
@@ -35,14 +48,12 @@ int main()
 
     } while(continuarPrograma);
 
+    if (tipoGuardado == SECUENCIAL) escribirArchivoSecuencial(productos, cantidadProductos);
+    else escribirArchivoAleatorio(productos, cantidadProductos);
+
     return 0;
 }
 
-/**
- * Muestra el menu de opciones y captura la opcion seleccionada por el usuario.
- * 
- * @return int Opcion seleccionada por el usuario 
-*/
 int elegirOpcionMenu()
 {
     int opcion;

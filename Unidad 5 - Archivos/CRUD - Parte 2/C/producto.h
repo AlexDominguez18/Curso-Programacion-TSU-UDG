@@ -9,6 +9,8 @@
 #define TOTAL_PRODUCTOS 10
 #define LONGITUD_NOMBRE 50
 #define LONGITUD_DESCRIPCION 100
+#define NOMBRE_ARCHIVO_SECUENCIAL "productos.txt"
+#define NOMBRE_ARCHIVO_ALEATORIO "productos.dat"
 
 enum opcionesMenu { 
     AGREGAR_PRODUCTO = 1, 
@@ -18,6 +20,11 @@ enum opcionesMenu {
     EDITAR_PRODUCTO, 
     SALIR 
 };
+
+typedef enum {
+    SECUENCIAL,
+    ALEATORIO
+} Guardado;
 
 typedef struct {
     int id;
@@ -39,6 +46,10 @@ void eliminarProducto(Producto *productos, int *cantidad);
 void listarProductos(Producto *productos, int cantidad);
 void mostrarProducto(Producto *productos, int cantidad);
 void editarProducto(Producto *productos, int cantidad);
+void leerArchivoSecuencial(Producto *productos, int *cantidad);
+void leerArchivoAleatorio(Producto *productos, int *cantidad);
+void escribirArchivoSecuencial(Producto *productos, int cantidad);
+void escribirArchivoAleatorio(Producto *productos, int cantidad);
 
 // Implementacion de funciones
 
@@ -318,4 +329,124 @@ void editarProducto(Producto *productos, int cantidad)
         break;
     }
 }
+
+/**
+ * Lee los productos desde un archivo secuencial y los guarda en un arreglo.
+ * El formato del archivo es el siguiente:
+ *  campo1,campo2,campo3,campo4,campo5\n
+ * En donde cada linea representa un producto.
+ * 
+ * @param productos Arreglo de productos
+ * @param cantidad Cantidad de productos
+ * 
+ * @return void
+*/
+void leerArchivoSecuencial(Producto *productos, int *cantidad)
+{
+    int cantidadBytes = 0;
+    FILE *archivo = fopen(NOMBRE_ARCHIVO_SECUENCIAL, "rb");
+
+    if (archivo == NULL) {
+        printf("No se pudo abrir el archivo\n");
+        return;
+    }
+
+    fseek(archivo, 0, SEEK_END);
+    cantidadBytes = ftell(archivo);
+    fseek(archivo, 0, SEEK_SET);
+    
+    while (ftell(archivo) < cantidadBytes) {
+        fscanf(archivo, "%d,%49[^,],%99[^,],%f,%d\n",
+            &productos[*cantidad].id,
+            productos[*cantidad].nombre,
+            productos[*cantidad].descripcion,
+            &productos[*cantidad].precio,
+            &productos[*cantidad].cantidadStock
+        );
+        
+        (*cantidad)++;
+    }
+
+    fclose(archivo);
+}
+
+/**
+ * Lee los productos desde un archivo de acceso aleatorio y los guarda en un arreglo.
+ * 
+ * @param productos Arreglo de productos
+ * @param cantidad Cantidad de productos
+ * 
+ * @return void
+*/
+void leerArchivoAleatorio(Producto *productos, int *cantidad)
+{
+    FILE *archivo = fopen(NOMBRE_ARCHIVO_ALEATORIO, "rb");
+
+    if (archivo == NULL) {
+        printf("No se pudo abrir el archivo\n");
+        return;
+    }
+
+    // Mientras se pueda leer un producto del archivo
+    while (fread(&productos[*cantidad], sizeof(Producto), 1, archivo)) {
+        (*cantidad)++;
+    }
+
+    fclose(archivo);
+}
+
+/**
+ * Escribe los productos en un archivo de acceso aleatorio.
+ * 
+ * @param productos Arreglo de productos
+ * @param cantidad Cantidad de productos
+ * 
+ * @return void
+*/
+void escribirArchivoAleatorio(Producto *productos, int cantidad)
+{
+    FILE *archivo = fopen(NOMBRE_ARCHIVO_ALEATORIO, "wb");
+
+    if (archivo == NULL) {
+        printf("No se pudo abrir el archivo\n");
+        return;
+    }
+
+    fwrite(productos, sizeof(Producto), cantidad, archivo);
+    fclose(archivo);
+}
+
+/**
+ * Escribe los productos en un archivo secuencial.
+ * El formato del archivo es el siguiente:
+ *  campo1,campo2,campo3,campo4,campo5\n
+ * En donde cada linea representa un producto.
+ * 
+ * @param productos Arreglo de productos
+ * @param cantidad Cantidad de productos
+ * 
+ * @return void
+*/
+void escribirArchivoSecuencial(Producto *productos, int cantidad)
+{
+    FILE *archivo = fopen(NOMBRE_ARCHIVO_SECUENCIAL, "wb");
+
+    if (archivo == NULL) {
+        printf("No se pudo abrir el archivo\n");
+        return;
+    }
+
+    for (int i = 0; i < cantidad; i++) {
+        fprintf(archivo, "%d,%s,%s,%.2f,%d\n",
+            productos[i].id,
+            productos[i].nombre,
+            productos[i].descripcion,
+            productos[i].precio,
+            productos[i].cantidadStock
+        );
+    }
+
+    fclose(archivo);
+}
+
 #endif // PRODUCTO_H
