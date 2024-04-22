@@ -253,7 +253,7 @@ void listarProductos(Producto* productos, int cantidad)
     }
 
     limpiarPantalla();
-    printf("2 - LISTADO DE PRODUCTOS\n\n");
+    printf("4 - LISTADO DE PRODUCTOS\n\n");
     imprimirLinea('-', tamanioLinea);
     printf("%s\n", encabezadoTabla);
     imprimirLinea('-', tamanioLinea);
