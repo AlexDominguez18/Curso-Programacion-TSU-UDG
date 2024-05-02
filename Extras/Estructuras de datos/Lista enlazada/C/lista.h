@@ -73,6 +73,39 @@ void agregar(Lista *lista, Dato dato)
 }
 
 /**
+ * Elimina un elemento de la lista.
+ * 
+ * @param lista La lista de la que se eliminará el elemento.
+ * @param posicion La posición del elemento a eliminar.
+*/
+void eliminar(Lista *lista, int posicion)
+{
+    if (posicion < 0 || posicion >= lista->longitud) return;
+
+    Nodo *actual = lista->primero;
+    Nodo *anterior = NULL;
+
+    for (int i = 0; i < posicion; i++) {
+        anterior = actual;
+        actual = actual->siguiente;
+    }
+
+    if (actual == lista->primero) {
+        lista->primero = actual->siguiente;
+    }
+    else if (actual == lista->ultimo) {
+        lista->ultimo = anterior;
+        lista->ultimo->siguiente = NULL;
+    }
+    else {
+        anterior->siguiente = actual->siguiente;
+    }
+
+    free(actual);
+    lista->longitud--;
+}
+
+/**
  * Obtiene el elemento en la posición indicada.
  * 
  * @param lista La lista de la que se quiere obtener el elemento.
