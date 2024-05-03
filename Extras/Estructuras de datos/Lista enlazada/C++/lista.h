@@ -7,13 +7,20 @@
 
 template<typename T>
 class Lista {
-public:
+private:
     Nodo<T> *primero;
     Nodo<T> *ultimo;
     int longitud;
+public:
     Lista();
+    ~Lista();
+    void setPrimero(Nodo<T> *nodo);
+    Nodo<T>* getPrimero();
+    void setUltimo(Nodo<T> *nodo);
+    Nodo<T>* getUltimo();
+    void setLongitud(const int longitud);
+    int getLongitud();
     bool estaVacia();
-    int obtenerLongitud();
     void agregar(T dato);
     void eliminar(int posicion);
     T operator[] (int posicion);
@@ -27,13 +34,48 @@ Lista<T>::Lista() {
 }
 
 template<typename T>
-bool Lista<T>::estaVacia() {
-    return this->longitud == 0;
+Lista<T>::~Lista() {
+    Nodo<T> *actual = this->primero;
+    while (actual != nullptr) {
+        Nodo<T> *temp = actual->siguiente;
+        delete actual;
+        actual = temp;
+    }
 }
 
 template<typename T>
-int Lista<T>::obtenerLongitud()  {
+void Lista<T>::setPrimero(Nodo<T> *nodo) {
+    this->primero = nodo;
+}
+
+template<typename T>
+Nodo<T>* Lista<T>::getPrimero() {
+    return this->primero;
+}
+
+template<typename T>
+void Lista<T>::setUltimo(Nodo<T> *nodo) {
+    this->ultimo = nodo;
+}
+
+template<typename T>
+Nodo<T>* Lista<T>::getUltimo() {
+    return this->ultimo;
+}
+
+template<typename T>
+void Lista<T>::setLongitud(const int longitud) {
+    this->longitud = longitud;
+}
+
+template<typename T>
+int Lista<T>::getLongitud() {
     return this->longitud;
+}
+
+template<typename T>
+bool Lista<T>::estaVacia() {
+    return this->longitud == 0;
 }
 
 template<typename T>
@@ -84,8 +126,8 @@ T Lista<T>::operator[](int posicion) {
 }
 
 template<typename T>
-std::ostream& operator<<(std::ostream &os, const Lista<T> &lista) {
-    Nodo<T> *actual = lista.primero;
+std::ostream& operator<<(std::ostream &os, Lista<T> &lista) {
+    Nodo<T> *actual = lista.getPrimero();
 
     while (actual != nullptr) {
         if (actual->siguiente == nullptr) os << actual->dato;

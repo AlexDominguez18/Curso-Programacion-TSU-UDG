@@ -14,7 +14,7 @@ int main()
         lista.agregar(i + 1);
 
     cout << "Lista:\n" << lista << endl;
-    cout << "Longitud: " << lista.obtenerLongitud() << endl;
+    cout << "Longitud: " << lista.getLongitud() << endl;
     cout << "Elemento en la posición " << POSICION <<  ": ";
     cout << lista[POSICION] << endl;
     
