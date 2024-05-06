@@ -45,6 +45,7 @@
         "stdio.h": "c",
         "stdlib.h": "c",
         "util.h": "c",
-        "producto.h": "c"
+        "producto.h": "c",
+        "cstring": "cpp"
     }
 }
