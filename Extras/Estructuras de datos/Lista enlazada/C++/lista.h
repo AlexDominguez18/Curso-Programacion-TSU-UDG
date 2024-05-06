@@ -12,14 +12,20 @@ private:
     Nodo<T> *ultimo;
     int longitud;
 public:
+    // Constructor y destructor
     Lista();
     ~Lista();
-    void setPrimero(Nodo<T> *nodo);
+
+    // Getters
     Nodo<T>* getPrimero();
-    void setUltimo(Nodo<T> *nodo);
     Nodo<T>* getUltimo();
-    void setLongitud(const int longitud);
     int getLongitud();
+
+    // Setters
+    void setPrimero(Nodo<T> *nodo);
+    void setUltimo(Nodo<T> *nodo);
+    void setLongitud(const int longitud);
+    
     bool estaVacia();
     void agregar(T dato);
     void eliminar(int posicion);
